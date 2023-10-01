@@ -18,6 +18,15 @@ const server = http.createServer((req, res) => {
         connection: 'keep-alive'...
     */    
     //process.exit(); // Sai do loop de eventos e o programa é encerrado, devolvendo o terminal após uma requisição
+
+    //Trabalhando com a resposta ao cliente
+    res.setHeader('Content-Type', 'text/html'); //configurando um cabeçalho, possível ver o mesmo no inspecionar, rede, requests
+    //Escrevendo o html que será devolvido como resposta ao cliente
+    res.write('<html>');
+    res.write('<head><title>My first page</title></head>');
+    res.write('<body><h1>Hello from my Node.js Server!</h1></body>');
+    res.write('</html>');
+    res.end(); //método para informar que a escrita da resposta foi encerrada
 });
 
 server.listen(3000); //O Listen inicia um processo em que o nodejs não sai imediatamente do nosso script, mas onde o nodejs mantém essa execução para escutar solicitações recebidas. Possui argumentos opcionais, aqui usa-se a porta na qual o servidor estará ouvindo
