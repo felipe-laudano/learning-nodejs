@@ -11,6 +11,7 @@ const http = require('http'); //Importando um módulo global, aqui poderia impor
 //Outro porém é, pode ser melhorado com uma arrow function
 const server = http.createServer((req, res) => { 
     console.log(req);
+    //process.exit(); // Sai do loop de eventos e o programa é encerrado, devolvendo o terminal após uma requisição
 });
 
 server.listen(3000); //O Listen inicia um processo em que o nodejs não sai imediatamente do nosso script, mas onde o nodejs mantém essa execução para escutar solicitações recebidas. Possui argumentos opcionais, aqui usa-se a porta na qual o servidor estará ouvindo
