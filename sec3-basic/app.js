@@ -10,7 +10,13 @@ const http = require('http'); //Importando um módulo global, aqui poderia impor
 
 //Outro porém é, pode ser melhorado com uma arrow function
 const server = http.createServer((req, res) => { 
-    console.log(req);
+    // console.log(req);
+    console.log(req.url, req.method, req.headers); //verificando as informações mais importantes, neste caso, a url, método e os cabeçalhos da requisição
+    //No terminal:
+    /** / GET {   // A barra sozinha quer dizer a URL, GET é o method e abaixo dele os headers (cabeçalhos)
+        host: 'localhost:3000',
+        connection: 'keep-alive'...
+    */    
     //process.exit(); // Sai do loop de eventos e o programa é encerrado, devolvendo o terminal após uma requisição
 });
 
