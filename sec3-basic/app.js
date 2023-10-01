@@ -1,4 +1,5 @@
 const http = require('http'); //Importando um módulo global, aqui poderia importar um arquivo local utilizando "./" ou "/"
+const fs = require('fs'); //Módulo/Pacote que permite trabalhar com o sistema de arquivo
 
 // function rqListener(req, res) { //função para manipular as requisições e as respostas (servidor). Esta função agora será executada para cada solicitação que chegar ao nosso servidor, que será iniciada quando createServer for chamado
 // }
@@ -11,6 +12,8 @@ const http = require('http'); //Importando um módulo global, aqui poderia impor
 //Outro porém é, pode ser melhorado com uma arrow function
 const server = http.createServer((req, res) => { 
     const url = req.url; //armazenando a url da requisição em uam constante
+    const method = req.method //armazenando o metódo da requisição em uma constante
+
     if (url === '/') { //Se a url da requisição for apenas / (=== se url é string e tem esse valor). Se for tru retornaa uma resposta que contenha algum html que forneça ao usuário um formulário de entrada e um botão que enviará uma nova solicitação em troca e que não será uma solicitação de obtenção a propósito.
         res.write('<html>');
         res.write('<head><title>Enter message</title></head>');
@@ -20,6 +23,15 @@ const server = http.createServer((req, res) => {
         res.write('</html>');
         return res.end(); //Isso encessa a execução da função
     }
+
+    //Tratando a rota /message
+    if (url === '/message' && method === 'POST') { //Se a rota for /message e o método POST
+        fs.writeFileSync('message.txt', 'DUMMY'); //Escreverá/Criará um novo arquivo dentro de sec3-basic para armazenar o que o usuário escrever no input e enviar pelo html da rota "/", Porém ao clicar em enviar será gravada apenas "DUMMY" no arquivo de texto, por enquanto.
+        res.statusCode = 302; //302 -> redirecionamento
+        res.setHeader('Location', '/'); //Definindo o cabeçalho padrão aceito pelo navegador e a rota que o usuário será redirecionado 
+        return res.end(); // Para não executar o código abaixo
+    }
+
     //console.log(req);
     //console.log(req.url, req.method, req.headers); //verificando as informações mais importantes, neste caso, a url, método e os cabeçalhos da requisição. Este console.log não tem muita relevância
     //No terminal:
